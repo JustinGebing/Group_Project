@@ -1,0 +1,16 @@
+Group #10
+Bills-n-Stuff app
+***Future Git Repo***
+
+For this project we have decided that we wanted to tackle an App that would be useful for everyone. What something everyone has? Bills.
+There are apps out there that could help you track your bills. What we want to know is can we do it better? Our initial plan is to get
+a functional app so that we can create, update and edit. We thought it would be a good idea to include, possibly an image to go along with
+your bill, Just something to help you remember what something may be.  Eventually something we could add would be an API to connect 
+directly with your bank account to be able to auto-populate some of these things.
+
+On Deck:
+1. Create Wireframe and Database
+2. Create and Problem solve CRUD
+
+If we have time:
+-- Connect an API to link directly to a Bank Account/Database
