@@ -1,6 +1,6 @@
 Group #10
 Bills-n-Stuff app
-***Future Git Repo***
+https://github.com/JustinGebing/Group_Project
 
 For this project we have decided that we wanted to tackle an App that would be useful for everyone. What something everyone has? Bills.
 There are apps out there that could help you track your bills. What we want to know is can we do it better? Our initial plan is to get
