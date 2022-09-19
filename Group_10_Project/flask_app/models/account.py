@@ -15,6 +15,7 @@ class Account:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.bills = []
 
     @classmethod
     def get_all(cls):
@@ -60,6 +61,29 @@ class Account:
     def delete(cls, data):
         query = 'DELETE FROM accounts WHERE id = %(id)s'
         return connectToMySQL(cls.db).query_db(query, data)
+
+#This Method Gets All The Bills Associated With One User
+    @classmethod
+    def getbills(cls):
+        query = "SELECT * FROM accounts LEFT JOIN bills on accounts.id = bills.user_id"
+        results = connectToMySQL(cls.db).query_db(query)
+        account = cls(results[0])
+        for abill in results:
+            bill = {
+                'id': abill['bills.id'],
+                'bill_name': abill['bill_name'],
+                'image':abill['image'], 
+                'due_date': abill['due_date'],
+                'how_much': abill['how_much'],
+                'recurring': abill['recurring'],
+                'created_at':abill['bills.created_at'],
+                'updated_at': abill['bill.updated_at'],
+                'user_id': abill['user_id']
+            }
+            account.bills.append(bill)
+        if len(results) < 1:
+            return False
+        return account
 
     @staticmethod
     def validate_account(account):
