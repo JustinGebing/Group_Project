@@ -25,6 +25,7 @@ class Bill:
         if len(bill['how_much']) < 1:
             flash("Bill Cost Is A Required Field")
             is_valid = False
+        return is_valid
     @classmethod
     def addbill(cls,data):
         query = "INSERT INTO bills (bill_name,image,due_date,how_much,recurring,user_id ) VALUES (%(bill_name)s, %(image)s, %(due_date)s, %(how_much)s, %(recurring)s, NOW(), NOW(), %(user_id)s)"
