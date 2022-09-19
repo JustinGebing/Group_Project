@@ -108,7 +108,7 @@ class Account:
             valid = False
 
         if len(account['password']) < 8 :
-            flash('Password has to be at least 8 characters', 'error')
+            flash('Password has to be at least 8 characters this one is WEAK', 'error')
             valid = False
 
         if account['password'] != account['confirm_password']:
@@ -123,6 +123,10 @@ def validate_login(account):
     
     if not email_regex.match(account['email']):
         flash('Please enter a valid email address', 'error')
+        valid = False
+
+    if len(account['password']) < 8:
+        flash('Password is at Least 8 Characters')
         valid = False
 
     return valid
