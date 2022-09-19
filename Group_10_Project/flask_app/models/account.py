@@ -78,7 +78,7 @@ class Account:
                 'how_much': abill['how_much'],
                 'recurring': abill['recurring'],
                 'created_at':abill['bills.created_at'],
-                'updated_at': abill['bill.updated_at'],
+                'updated_at': abill['bills.updated_at'],
                 'user_id': abill['user_id']
             }
             account.bills.append(bill)
