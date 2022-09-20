@@ -50,4 +50,23 @@ class Bill:
     @classmethod
     def getallbills(cls):
         query = "SELECT * FROM bills"
-        return connectToMySQL('Bills-n-Stuff').query_db(query)
+        results = connectToMySQL('Bills-n-Stuff').query_db(query)
+        allbills = []
+        for abill in results:
+            bill = {
+                'id': abill['bills.id'],
+                'name': abill['name'],
+                'image':abill['image'], 
+                'due_date': abill['due_date'],
+                'amount': abill['amount'],
+                'recurring': abill['recurring'],
+                'created_at':abill['bills.created_at'],
+                'updated_at': abill['bills.updated_at'],
+                'account_id': abill['account_id']
+            }
+            allbills.append(bill)
+        if len(results) < 1:
+            return False
+        return allbills
+        
+        
