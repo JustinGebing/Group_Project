@@ -29,21 +29,21 @@ class Bill:
     @classmethod
     def addbill(cls,data):
         query = "INSERT INTO bills (bill_name,image,due_date,amount,recurring,account_id ) VALUES (%(bill_name)s, %(image)s, %(due_date)s, %(amount)s, %(recurring)s, NOW(), NOW(), %(account_id)s)"
-        return connectToMySQL('Bills_n_Stuff').query_db(query,data)
+        return connectToMySQL('Bills-n-Stuff').query_db(query,data)
 
     @classmethod
     def updatebill(clas,data):
         query = "UPDATE bills SET bill_name = %(bill_name)s, image = %(image)s, due_date = %(due_date)s, how_much = %(amount)s, recurring = %(recurring)s, updated_at = NOW() WHERE id = %(id)s"
-        return connectToMySQL('Bills_n_Stuff').query_db(query,data)
+        return connectToMySQL('Bills-n-Stuff').query_db(query,data)
 
     @classmethod
     def getbill(cls,data):
         query = "SELECT * FROM bills WHERE id = %(id)s"
-        results = connectToMySQL('Bills_n_Stuff').query_db(query,data)
+        results = connectToMySQL('Bills-n-Stuff').query_db(query,data)
         bill = cls(results[0])
         return bill
     
     @classmethod
     def deletebill(cls,data):
         query = "DELETE FROM bills WHERE id = %(id)s"
-        return connectToMySQL('Bills_n_Stuff').query_db(query,data)
+        return connectToMySQL('Bills-n-Stuff').query_db(query,data)
