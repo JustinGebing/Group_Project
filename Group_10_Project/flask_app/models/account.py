@@ -66,7 +66,7 @@ class Account:
 #This Method Gets All The Bills Associated With One User
     @classmethod
     def getbills(cls):
-        query = "SELECT * FROM accounts LEFT JOIN bills on accounts.id = bills.user_id"
+        query = "SELECT * FROM accounts LEFT JOIN bills on accounts.id = bills.account_id"
         results = connectToMySQL(cls.db).query_db(query)
         account = cls(results[0])
         for abill in results:
