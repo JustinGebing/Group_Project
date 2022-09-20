@@ -64,7 +64,7 @@ def dashboard():
     data = {
         'id': session['id']
     }
-    return render_template('home.html', account=Account.getbills())
+    return render_template('home.html', bills = Bill.getallbills())
     # , bill=Account.getbills()
 
 @app.route('/logout')
