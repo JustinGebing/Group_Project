@@ -72,14 +72,14 @@ class Account:
         for abill in results:
             bill = {
                 'id': abill['bills.id'],
-                'bill_name': abill['bill_name'],
+                'name': abill['name'],
                 'image':abill['image'], 
                 'due_date': abill['due_date'],
-                'how_much': abill['how_much'],
+                'amount': abill['amount'],
                 'recurring': abill['recurring'],
                 'created_at':abill['bills.created_at'],
                 'updated_at': abill['bills.updated_at'],
-                'user_id': abill['user_id']
+                'account_id': abill['account_id']
             }
             account.bills.append(bill)
         if len(results) < 1:
