@@ -1,6 +1,7 @@
 from flask_app import app
 from flask import render_template, redirect, request, flash, session
 from flask_app.models.account import Account
+from flask_app.models.bill import Bill
 from flask_bcrypt import Bcrypt
 bcrypt=Bcrypt(app)
 
@@ -41,6 +42,7 @@ def login():
         'email' : request.form['email'],
         }
 
+
     account = Account.get_one_email(data)
     if account:
         if not bcrypt.check_password_hash(account.password, request.form['password']):
@@ -54,7 +56,19 @@ def login():
     flash('Email not recognized')
     return redirect('/')
 
+#Route to Dashboard
+@app.route('/dashboard')
+def dashboard():
+    if 'id' not in session:
+        return redirect('/logout')
+    data = {
+        'id': session['id']
+    }
+    return render_template('home.html', account=Account.get_one(data))
+    # , bill=Account.getbills()
+
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')
+
