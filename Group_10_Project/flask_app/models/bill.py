@@ -32,7 +32,7 @@ class Bill:
         return connectToMySQL('Bills-n-Stuff').query_db(query,data)
 
     @classmethod
-    def updatebill(clas,data):
+    def updatebill(cls,data):
         query = "UPDATE bills SET name = %(name)s, image = %(image)s, due_date = %(due_date)s, how_much = %(amount)s, recurring = %(recurring)s, updated_at = NOW() WHERE id = %(id)s"
         return connectToMySQL('Bills-n-Stuff').query_db(query,data)
 
