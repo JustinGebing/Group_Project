@@ -28,12 +28,20 @@ class Bill:
         return is_valid
     @classmethod
     def addbill(cls,data):
+ models-2
         query = "INSERT INTO bills (name,image,due_date,amount,recurring,account_id ) VALUES (%(name)s, %(image)s, %(due_date)s, %(amount)s, %(recurring)s, NOW(), NOW(), %(account_id)s)"
+=======
+        query = "INSERT INTO bills (bill_name,image,due_date,how_much,recurring,user_id ) VALUES (%(bill_name)s, %(image)s, %(due_date)s, %(how_much)s, %(recurring)s, NOW(), NOW(), %(user_id)s)"
+ main
         return connectToMySQL('Bills-n-Stuff').query_db(query,data)
 
     @classmethod
     def updatebill(clas,data):
+models-2
         query = "UPDATE bills SET name = %(name)s, image = %(image)s, due_date = %(due_date)s, how_much = %(amount)s, recurring = %(recurring)s, updated_at = NOW() WHERE id = %(id)s"
+=======
+        query = "UPDATE bills SET bill_name = %(bill_name)s, image = %(image)s, due_date = %(due_date)s, how_much = %(how_much)s, recurring = %(recurring)s, updated_at = NOW() WHERE id = %(id)s"
+ main
         return connectToMySQL('Bills-n-Stuff').query_db(query,data)
 
     @classmethod
