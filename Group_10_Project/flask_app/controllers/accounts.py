@@ -42,6 +42,7 @@ def login():
         'email' : request.form['email'],
         }
 
+
     account = Account.get_one_email(data)
     if account:
         if not bcrypt.check_password_hash(account.password, request.form['password']):
@@ -70,3 +71,4 @@ def dashboard():
 def logout():
     session.clear()
     return redirect('/')
+

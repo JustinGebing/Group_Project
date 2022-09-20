@@ -32,6 +32,7 @@ def create_bill():
     Bill.addbill(data)
     return redirect('/dashboard')
 
+
 #Route to show bill
 @app.route('/bill/<int:id>')
 def show_bill(id):
@@ -86,4 +87,5 @@ def delete_bill(id):
     }
     Bill.deletebill(data)
     return redirect('/dashboard')
+
 
