@@ -86,3 +86,4 @@ def delete_bill(id):
     }
     Bill.deletebill(data)
     return redirect('/dashboard')
+

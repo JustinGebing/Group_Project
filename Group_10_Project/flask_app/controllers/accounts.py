@@ -36,7 +36,6 @@ def delete(id):
     )
     return redirect('/')
 
-
 @app.route('/login', methods=['POST'])
 def login():
     data = {
