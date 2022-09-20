@@ -1,29 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <style>
-        body{
-            margin-left: 200px;
-            margin-right: 200px;
-        }
-
-        .everything{
-            display: flex;
-            align-items: center;
-        }
-
-        .container{
-            width: 960px;
-            display: flex;
-            justify-content: space-between;
-        }
-    </style>
+    <head>
+    <title>Login and register</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="container text-center">
+        <h1>Welcome to Bills & stuff</h1>
+    </div>
     {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
         {% if messages %}                            <!-- check if there are any messages -->
             {% for message in messages %}            <!-- loop through the messages -->
@@ -31,45 +20,57 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <div class="everything">
-        <div class="container">
-            <form action="/process" method="POST" >
-                <section>
-                    <h2>First Name:</h2>
-                    <input type="text" name="first_name" id="fname">
-                </section>
-                <section>
-                    <h2>Last Name:</h2>
-                    <input type="text" name="last_name" id="lname">
-                </section>
-                <section>
-                    <h2>Email:</h2>
-                    <input type="text" name="email" id="email">
-                </section>
-                <section>
-                    <h2>Password:</h2>
-                    <input type="password" name="password" id="pword">
-                </section>
-                <section>
-                    <h2>Confirm Password:</h2>
-                    <input type="password" name="confirm_password" id="cpword">
-                </section>
-                <section>
-                    <button>Submit</button>
-                </section>
-            </form>
-            <form action="/login" method="post">
-                <section>
-                    <h2>Login:</h2>
-                    <input type="text" name="email" id="email">
-                </section>
-                <section>
-                    <h2>Password:</h2>
-                    <input type="password" name="password" id="pword">
-                </section>
-                <button>Login</button>
-            </form>
+    <div class="container bg-dark text-light my-4 px-3">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <h2>Register</h2>
+                    <form action="/process" method="POST" >
+                        <div>
+                            <label for="first_name">First Name:</label>
+                            <input class="form-control" type="text" name="first_name" id="fname">
+                        </div>
+                        <div>
+                            <label for="last_name">Last Name:</label>
+                            <input class="form-control" type="text" name="last_name" id="lname">
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input class="form-control" type="text" name="email" id="email">
+                        </div>
+                        <div>
+                            <label for="password">Password:</label>
+                            <input class="form-control" type="password" name="password" id="pword">
+                        </div>
+                        <div>
+                            <label for="confirm_password">Confirm Password:</label>
+                            <input class="form-control" type="password" name="confirm_password" id="cpword">
+                        </div>
+                        <input class="btn btn-secondary my-2" type="submit" value="Register">
+                    </form>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <h2>Login</h2>
+                    <form action="/login" method="post">
+                        <div>
+                            <label for="email">Email:</label>
+                            <input class="form-control" type="text" name="email" id="email">
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input class="form-control" type="password" name="password" id="pword">
+                        </div>
+                        <input class="btn btn-secondary my-2" type="submit" value="Login">
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="static/js/bootstrap.js"></script>
 </body>
 </html>
