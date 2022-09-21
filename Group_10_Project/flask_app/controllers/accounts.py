@@ -57,7 +57,7 @@ def login():
     return redirect('/')
 
 #Route to Dashboard
-@app.route('/dashboard/<int:id>')
+@app.route('/dashboard')
 def dashboard():
     if 'id' not in session:
         return redirect('/logout')
