@@ -57,14 +57,14 @@ def login():
     return redirect('/')
 
 #Route to Dashboard
-@app.route('/dashboard')
+@app.route('/dashboard/<int:id>')
 def dashboard():
     if 'id' not in session:
         return redirect('/logout')
     data = {
         'id': session['id']
     }
-    return render_template('home.html', bills = Bill.getallbills())
+    return render_template('home.html', bills = Bill.getallbills(data))
     # , bill=Account.getbills()
 
 @app.route('/logout')
