@@ -28,6 +28,15 @@
                 <div class="col">
                     <h2>Upload Image Here</h2>
                     <p>hi</p>
+                    <form action='/new/bill' id='imageForm' method='post' enctype="multipart/form-data">
+                        <label for="file">Upload Image: </label>
+                        <input type='file' name='file' value="{{file}}">
+                        <input type='submit' id='submit_btn' value='Upload'>
+                    </form>
+                    <form id='billForm' method='post'>
+                        <label for="how_much">Total Bill: </label>
+                        <input type='text' name='how_much' value="${{total_cost}}">
+                    </form>
                 </div>
             </div>
         </div>
