@@ -71,14 +71,14 @@ class Account:
         account = cls(results[0])
         for abill in results:
             bill = {
-                'id': abill['bills.id'],
+                'id': abill['id'],
                 'name': abill['name'],
                 'image':abill['image'], 
                 'due_date': abill['due_date'],
                 'amount': abill['amount'],
                 'recurring': abill['recurring'],
-                'created_at':abill['bills.created_at'],
-                'updated_at': abill['bills.updated_at'],
+                'created_at':abill['created_at'],
+                'updated_at': abill['updated_at'],
                 'account_id': abill['account_id']
             }
             account.bills.append(bill)
