@@ -1,9 +1,9 @@
-from flask import render_template, redirect, session, request, flash
+from flask import render_template, redirect, session, request, flash,json
 from flask_app import app
 from flask_app.models.bill import Bill
 from flask_app.models.account import Account
 from flask_app.models.image_text import Image_text
-
+from PIL import Image
 #Route to create bill page
 @app.route('/new/bill')
 def new_bill():
@@ -13,6 +13,14 @@ def new_bill():
         'id': session['id']
     }
     return render_template('create.html', account=Account.get_one(data))
+
+#Route to upload Image
+@app.route('/uploadImage', methods=['POST','GET'])
+def uploadImage():
+    if request.method == "POST":
+        image =  request.form['image']
+        total_cost=Image_text.total_amount(image)
+    return render_template('create.html',total_cost=total_cost)
 
 #Route to create bill
 @app.route('/create/bill', methods=['POST'])
