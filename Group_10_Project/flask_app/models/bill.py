@@ -48,8 +48,8 @@ class Bill:
         query = "DELETE FROM bills WHERE id = %(id)s"
         return connectToMySQL('Bills-n-Stuff').query_db(query,data)
     @classmethod
-    def getallbills(cls):
-        query = "SELECT * FROM bills"
+    def getallbills(cls,data):
+        query = "SELECT * FROM bills WHERE account_id = %(id)s"
         results = connectToMySQL('Bills-n-Stuff').query_db(query)
         allbills = []
         for abill in results:
