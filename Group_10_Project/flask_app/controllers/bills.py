@@ -32,23 +32,23 @@ def new_bill_page():
 def create_bill():
     if 'id' not in session:
         return redirect('/logout')
-    if session['check']=="1":
-        total_cost=""
-        filelocation=""
-        images = request.files['file']
-        filename=images.filename
-        filelocation="c:/fakepath/flask_app/static/img"+filename
-        print("File Location:"+filelocation)
-        session['image_location']=filelocation
-        print(filelocation)
-        total_cost=Image_text.total_amount(images,filename)
-        session['total_cost']=total_cost
-        print(session['total_cost'])
-        session['check']="0"
-        return render_template('create.html',total_cost=session['total_cost'],image_loc=session['image_location'])
-    elif not Bill.validatebill(request.form):
-        return redirect('/new/bill')
-    session['check']="1"
+    # if session['check']=="1":
+    #     total_cost=""
+    #     filelocation=""
+    #     images = request.files['file']
+    #     filename=images.filename
+    #     filelocation="c:/fakepath/flask_app/static/img"+filename
+    #     print("File Location:"+filelocation)
+    #     session['image_location']=filelocation
+    #     print(filelocation)
+    #     total_cost=Image_text.total_amount(images,filename)
+    #     session['total_cost']=total_cost
+    #     print(session['total_cost'])
+    #     session['check']="0"
+    #     return render_template('create.html',total_cost=session['total_cost'],image_loc=session['image_location'])
+    # elif not Bill.validatebill(request.form):
+    #     return redirect('/new/bill')
+    # session['check']="1"
     data = {
         'name': request.form['name'],
         'image': request.form.get('image', False),
@@ -58,7 +58,7 @@ def create_bill():
         'account_id': request.form['account_id']
     }
     Bill.addbill(data)
-    os.remove(session['image_location']) 
+    # os.remove(session['image_location']) 
     return redirect('/dashboard')
 
 
