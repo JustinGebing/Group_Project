@@ -20,6 +20,7 @@ def new_bill():
         filename=images.filename
         total_cost=Image_text.total_amount(images,filename)
     return render_template('create.html', account=Account.get_one(data),total_cost=total_cost)
+
 #Route to image Parser
 @app.route('/new/bill/img', methods=['POST','GET'])
 def upload_img():

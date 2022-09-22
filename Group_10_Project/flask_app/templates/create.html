@@ -35,7 +35,7 @@
                         <input class="btn btn-sm btn-secondary mt-2" type='submit' id="submit_btn" value='Upload'>
                     </form>
                     <form action="/create/bill" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="user_id" value="{{session['account_id']}}">
+                        <input type="hidden" name="account_id" value={{session['accounts.account_id']}}>
                         <div class="form-floating">
                             <label for="name" class="form-label">Name of Bill:</label>
                             <input class="form-control" type="text" name="name" placeholder="name">

@@ -30,12 +30,12 @@ class Bill:
 
     @classmethod
     def addbill(cls,data):
-        query = "INSERT INTO bills (name,image,due_date,amount,recurring,account_id ) VALUES (%(name)s, %(image)s, %(due_date)s, %(amount)s, %(recurring)s, NOW(), NOW(), %(account_id)s)"
+        query = "INSERT INTO bills (name,image,due_date,amount,recurring,account_id ) VALUES (%(name)s, %(image)s, %(due_date)s, %(amount)s, %(recurring)s, %(account_id)s)"
         return connectToMySQL('Bills-n-Stuff').query_db(query,data)
 
     @classmethod
     def updatebill(cls,data):
-        query = "UPDATE bills SET name = %(name)s, image = %(image)s, due_date = %(due_date)s, how_much = %(amount)s, recurring = %(recurring)s, updated_at = NOW() WHERE id = %(id)s"
+        query = "UPDATE bills SET name = %(name)s, image = %(image)s, due_date = %(due_date)s, amount = %(amount)s, recurring = %(recurring)s, updated_at = NOW() WHERE id = %(id)s"
         return connectToMySQL('Bills-n-Stuff').query_db(query,data)
 
     @classmethod
