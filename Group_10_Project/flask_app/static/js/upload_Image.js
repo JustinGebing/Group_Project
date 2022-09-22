@@ -6,3 +6,11 @@ billImage.onsubmit = function(e){
             .then( response => response.json() )
             .then( data => console.log(data) )
     }
+    $(document).ready(function(){
+        $("input").keyup(function(){
+                var img = $("#file").val();
+                var amount = $("input").val();
+                $.post("http://localhost:5000/new/bill/img",img,function(result){
+                        $("#amount").val(result);})
+                })
+        })
