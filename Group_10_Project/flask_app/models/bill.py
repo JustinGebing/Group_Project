@@ -20,16 +20,16 @@ class Bill:
     @staticmethod
     def validatebill(bill):
         is_valid = True
-        if (bill['name']) == "":
-            flash("Bill Name Is A Required Field And Must Be More than 2 Characters")
-            is_valid = False
-        if len(bill['due_date']) < 1:
-            flash("Date Is A Required Field")
-            is_valid = False
-        if (bill['amount']) == "" :
-            flash("Bill Cost/Amount Is A Required Field")
-            is_valid = False
-        return is_valid
+        # if len(bill['name']) < 2:
+        #     flash("Bill Name Is A Required Field And Must Be More than 2 Characters")
+        #     is_valid = False
+        # if len(bill['due_date']) < 1:
+        #     flash("Date Is A Required Field")
+        #     is_valid = False
+        # if (bill['amount']) == "" :
+        #     flash("Bill Cost/Amount Is A Required Field")
+        #     is_valid = False
+        # return is_valid
 
     @classmethod
     def addbill(cls,data):
