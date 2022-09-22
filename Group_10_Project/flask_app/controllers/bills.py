@@ -79,7 +79,7 @@ def update_bill(id):
         'image' : request.form.get('image', False)
     }
     Bill.updatebill(data)
-    return redirect(f'/edit/bill/{id}')
+    return redirect(f'/bill/{id}')
 
 #Route to delete bill
 @app.route('/delete/bill/<int:id>')
