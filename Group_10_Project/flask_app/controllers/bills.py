@@ -1,9 +1,12 @@
 from email.mime import image
-from flask import render_template, redirect, session, request, flash, json
+from unittest import result
+from urllib import response
+from flask import render_template, redirect, session, request, flash, jsonify,json
 from flask_app import app
 from flask_app.models.bill import Bill
 from flask_app.models.account import Account
 from flask_app.models.image_text import Image_text
+import os
 
 
 #New route to render create bill page
@@ -33,13 +36,27 @@ def new_bill_page():
     # total_cost=total_cost,file_value=images
 
 #Route to create bill
-
 @app.route('/create/bill', methods=['POST'])
 def create_bill():
     if 'id' not in session:
         return redirect('/logout')
     if not Bill.validatebill(request.form):
         return redirect('/new/bill')
+    if session['check']=="1":
+        total_cost=""
+        filelocation=""
+        images = request.files['file']
+        filename=images.filename
+        filelocation="c:/fakepath/flask_app/static/img"+filename
+        print("File Location:"+filelocation)
+        session['image_location']=filelocation
+        print(filelocation)
+        total_cost=Image_text.total_amount(images,filename)
+        session['total_cost']=total_cost
+        print(session['total_cost'])
+        session['check']="0"
+        return redirect('/new/bill')
+    session['check']="1"
     data = {
         'name': request.form['name'],
         'image': request.form.get('image', False),
@@ -49,6 +66,7 @@ def create_bill():
         'account_id': request.form['account_id']
     }
     Bill.addbill(data)
+    os.remove(session['image_location']) 
     return redirect('/dashboard')
 
 
@@ -90,7 +108,7 @@ def update_bill(id):
         'image' : request.form.get('image', False)
     }
     Bill.updatebill(data)
-    return redirect(f'/bill/{id}')
+    return redirect(f'/edit/bill/{id}')
 
 #Route to delete bill
 @app.route('/delete/bill/<int:id>')
