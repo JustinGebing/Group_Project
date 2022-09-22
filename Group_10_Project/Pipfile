@@ -7,6 +7,8 @@ name = "pypi"
 flask = "==2.0.3"
 pymysql = "*"
 flask-bcrypt = "*"
+pillow = "*"
+pytesseract = "*"
 
 [dev-packages]
 

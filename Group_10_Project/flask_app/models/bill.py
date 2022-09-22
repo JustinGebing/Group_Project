@@ -13,6 +13,7 @@ class Bill:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.account_id = data ['account_id']
+
     @staticmethod
     def validatebill(bill):
         is_valid = True
@@ -26,6 +27,7 @@ class Bill:
             flash("Bill Cost/Amount Is A Required Field")
             is_valid = False
         return is_valid
+
     @classmethod
     def addbill(cls,data):
         query = "INSERT INTO bills (name,image,due_date,amount,recurring,account_id ) VALUES (%(name)s, %(image)s, %(due_date)s, %(amount)s, %(recurring)s, NOW(), NOW(), %(account_id)s)"
