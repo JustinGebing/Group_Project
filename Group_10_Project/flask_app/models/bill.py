@@ -20,7 +20,7 @@ class Bill:
     @staticmethod
     def validatebill(bill):
         is_valid = True
-        if len(bill['name']) < 2:
+        if (bill['name']) == "":
             flash("Bill Name Is A Required Field And Must Be More than 2 Characters")
             is_valid = False
         if len(bill['due_date']) < 1:
@@ -33,12 +33,12 @@ class Bill:
 
     @classmethod
     def addbill(cls,data):
-        query = "INSERT INTO bills (name,image,due_date,amount,recurring,account_id ) VALUES (%(name)s, %(image)s, %(due_date)s, %(amount)s, %(recurring)s, %(account_id)s)"
+        query = "INSERT INTO bills (name,image,due_date,amount,recurring,account_id) VALUES (%(name)s, %(image)s, %(due_date)s, %(amount)s, %(recurring)s, %(account_id)s)"
         return connectToMySQL(cls.db).query_db(query,data)
 
     @classmethod
     def updatebill(cls,data):
-        query = "UPDATE bills SET name = %(name)s, image = %(image)s, due_date = %(due_date)s, amount = %(amount)s, recurring = %(recurring)s WHERE id = %(id)s"
+        query = "UPDATE bills SET name = %(name)s, amount = %(amount)s, due_date = %(due_date)s, image = %(image)s WHERE id = %(id)s"
         return connectToMySQL(cls.db).query_db(query,data)
 
     @classmethod

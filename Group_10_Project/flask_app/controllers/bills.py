@@ -7,19 +7,19 @@ from flask_app.models.image_text import Image_text
 
 
 #Route to create bill page
-@app.route('/new/bill',methods=['POST','GET'])
+@app.route('/new/bill',methods=['POST'])
 def new_bill():
     if 'id' not in session:
         return redirect('/logout')
-    data = {
-        'id': session['id']
-    }
+    if Bill.validatebill(request.form):
+        print(request.form['account_id'])
+        Bill.addbill(request.form)
     total_cost=""
     if request.method == "POST":
         images = request.files['file']
         filename=images.filename
         total_cost=Image_text.total_amount(images,filename)
-    return render_template('create.html', account=Account.get_one(data),total_cost=total_cost,file_value=images)
+    return render_template('create.html', total_cost=total_cost,file_value=images)
 
 #Route to create bill
 
@@ -52,7 +52,7 @@ def show_bill(id):
         'id': id
     }
     bill = Bill.getbill(bill_data)
-    return render_template('edit.html', bill=bill)
+    return render_template('show.html', bill=bill)
 
 #Route to edit page
 @app.route('/edit/bill/<int:id>')
@@ -70,9 +70,15 @@ def edit_page(id):
 def update_bill(id):
     if 'id' not in session:
         return redirect('/logout')
-    if Bill.validatebill(request.form):
-        Bill.updatebill(request.form)
-        return redirect('/dashboard')
+    data = {
+        'id' : request.form['id'],
+        'name' : request.form['name'],
+        'amount' : request.form['amount'],
+        'recurring' : request.form.get('recurring', False),
+        'due_date' : request.form['due_date'],
+        'image' : request.form.get('image', False)
+    }
+    Bill.updatebill(data)
     return redirect(f'/edit/bill/{id}')
 
 #Route to delete bill
