@@ -1,3 +1,4 @@
+from pickle import FALSE
 from flask import render_template, redirect, session, request, flash, json
 from flask_app import app
 from flask_app.models.bill import Bill
@@ -20,6 +21,7 @@ def new_bill():
         total_cost=Image_text.total_amount(images,filename)
     return render_template('create.html', account=Account.get_one(data),total_cost=total_cost)
 #Route to create bill
+
 @app.route('/create/bill', methods=['POST'])
 def create_bill():
     if 'id' not in session:
@@ -28,10 +30,10 @@ def create_bill():
         return redirect('/new/bill')
     data = {
         'name': request.form['name'],
-        'image': request.form['image'],
+        'image': request.form.get('image', FALSE),
         'due_date': request.form['due_date'],
-        'how_much': request.form['how_much'],
-        'recurring': request.form['recurring'],
+        'amount': request.form['amount'],
+        'recurring': request.form.get('recurring', FALSE),
         'account_id': request.form['account_id']
     }
     Bill.addbill(data)
