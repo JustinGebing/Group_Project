@@ -6,20 +6,31 @@ from flask_app.models.account import Account
 from flask_app.models.image_text import Image_text
 
 
-#Route to create bill page
-@app.route('/new/bill',methods=['POST'])
-def new_bill():
+#New route to render create bill page
+@app.route('/new/bill')
+def new_bill_page():
     if 'id' not in session:
         return redirect('/logout')
-    if Bill.validatebill(request.form):
-        print(request.form['account_id'])
-        Bill.addbill(request.form)
-    total_cost=""
-    if request.method == "POST":
-        images = request.files['file']
-        filename=images.filename
-        total_cost=Image_text.total_amount(images,filename)
-    return render_template('create.html', total_cost=total_cost,file_value=images)
+    data = {
+        'id':session['id']
+    }
+    return render_template('create.html', account=Account.get_one(data))
+
+#Route to create bill page
+# @app.route('/new/bill')
+# def new_bill():
+#     if 'id' not in session:
+#         return redirect('/logout')
+#     if Bill.validatebill(request.form):
+#         print(request.form['account_id'])
+#         Bill.addbill(request.form)
+#     # total_cost=""
+#     # if request.method == "POST":
+#     #     images = request.files['file']
+#     #     filename=images.filename
+#     #     total_cost=Image_text.total_amount(images,filename)
+#     return render_template('create.html', account=Account.get_one())
+    # total_cost=total_cost,file_value=images
 
 #Route to create bill
 
