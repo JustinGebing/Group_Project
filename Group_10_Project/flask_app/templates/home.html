@@ -41,7 +41,9 @@
                 <tr>
                     <th scope="row">
                         <img src="" class="img-fluid rounded">
-                    <td>{{a_bill.name}}</td>
+                    <td>
+                        <button><a href="/bill/{{a_bill.id}}" class="list-group-item list-group-item-action active" aria-current="true"> {{a_bill.name}} </a></button>
+                    </td>
                     <td>{{a_bill.amount}}</td>
                     <td>{{a_bill.due_date}}</td>
                     <td>
