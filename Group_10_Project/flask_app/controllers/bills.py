@@ -7,19 +7,19 @@ from flask_app.models.image_text import Image_text
 
 
 #Route to create bill page
-@app.route('/new/bill',methods=['POST'])
+@app.route('/new/bill',methods=['POST','GET'])
 def new_bill():
     if 'id' not in session:
         return redirect('/logout')
-    if Bill.validatebill(request.form):
-        print(request.form['account_id'])
-        Bill.addbill(request.form)
+    data = {
+        'id': session['id']
+    }
     total_cost=""
     if request.method == "POST":
         images = request.files['file']
         filename=images.filename
         total_cost=Image_text.total_amount(images,filename)
-    return render_template('create.html', total_cost=total_cost,file_value=images)
+    return render_template('create.html', account=Account.get_one(data),total_cost=total_cost,file_value=images)
 
 #Route to create bill
 
@@ -79,7 +79,7 @@ def update_bill(id):
         'image' : request.form.get('image', False)
     }
     Bill.updatebill(data)
-    return redirect(f'/bill/{id}')
+    return redirect(f'/edit/bill/{id}')
 
 #Route to delete bill
 @app.route('/delete/bill/<int:id>')
