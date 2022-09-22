@@ -12,19 +12,18 @@ class Image_text:
 
     def total_amount(image,filename):
         #Save image to temporary location
-        UPLOAD_FOLDER = 'flask_app/static/img/'+filename
+        UPLOAD_FOLDER = 'flask_app/static/img/'
         app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-        try:
+        try:    
             image1 = Image.open(image)
-            image1.save(UPLOAD_FOLDER)
+            image1.save(UPLOAD_FOLDER+filename)
             #Define path to image
-            path_to_image = UPLOAD_FOLDER
+            path_to_image = UPLOAD_FOLDER+filename
             #Open image with PIL
             img = Image.open(path_to_image)
-            
+                
             #Extract text from image
             text = pytesseract.image_to_string(img)
-            print(text)
 
             #Preparing Text data
             part1=(text.replace("\n"," ")).upper()
@@ -42,16 +41,19 @@ class Image_text:
                     c=b.split(" ")
                     x=-1
                     #Finding 
+                    
                     for d in c:
+                        
                         x+=1
-                        if "SUB" in c or d:
+                        if "SUB" in d:
                             continue
                         elif "TAX" in d:
                             continue
-                        elif "TOTAL"in d:
+                        elif "TOTAL" in d:
+                            print(d)
                             for e in range(len(c)):
                                 f=c[e].replace(",",".")
-                                
+                                print(f)
                                 try:
                                     if float(f)>0:
                                         price = f
@@ -70,7 +72,8 @@ class Image_text:
                 total="Image unclear. Re-upload new image"
             else:
                 total=price
-            os.remove(UPLOAD_FOLDER)
+                print("Here is the price"+price)
         except:
-            total="Error with image"
+            total=price
+        os.remove(UPLOAD_FOLDER+filename) 
         return total
