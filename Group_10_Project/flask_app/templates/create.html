@@ -29,11 +29,13 @@
         <div class="container my-4 text-light">
             <div class="row">
                 <div class="col-5 mx-auto bg-dark rounded">
-                    <form action='/new/bill' id='imageForm' method='post' enctype="multipart/form-data">
+                    <form action="/new/bill" id='imageForm' method='post' enctype="multipart/form-data">
                         <label for="file">Upload Image: </label>
-                        <input class="form-control" type='file' name='file' value="{{file}}">
-                        <input class="btn btn-sm btn-secondary mt-2" type='submit' id="submit_btn" value='Upload'>
+                        <input class="form-control" id="file" type='file' name='file' value = "{{file_value}}" accept="image/jpeg,image/jpg,image/png">
+                        <input class="btn btn-sm btn-secondary mt-2" type="submit"value = "Upload" onclick="loadImg()" id="submit_btn">
                     </form>
+                        
+                    
                     <form action="/create/bill" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="user_id" value="{{session['account_id']}}">
                         <div class="form-floating">
@@ -42,7 +44,7 @@
                         </div>
                         <div class="form-floating">
                             <label for="amount" class="form-label">Bill Amount:</label>
-                            <input class="form-control" type="number" name="amount" placeholder="Bill amount">
+                            <input class="form-control" type="number" name="amount" placeholder="Bill amount" value="{{total_cost}}">
                         </div>
                         <div>
                             <label class="form-label" for="due_date">Due Date:</label>
@@ -53,19 +55,6 @@
                             <label class="form-check-label" for="recurring">Is Bill Recurring?</label>
                         </div>
                         <input class="btn btn-secondary btn-sm mb-2 mt-5" type="submit" value="Create New Bill">
-                <div class="col">
-                    <h2>Upload Image Here</h2>
-                    <p>hi</p>
-                    <form action='/new/bill' id='imageForm' method='post' enctype="multipart/form-data">
-                        <label for="file">Upload Image: </label>
-                        <input type='file' name='file' value="{{file}}">
-                        <input type='submit' id='submit_btn' value='Upload'>
-                    </form>
-                    <form id='billForm' method='post'>
-                        <label for="amount">Total Bill: </label>
-                        <input type='text' name='amount' value="${{total_cost}}">
-                    </form>
-                </div>
             </div>
         </div>
     
@@ -73,6 +62,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="static/js/bootstrap.js"></script>
+    
+    
 </body>
 </html>
 
