@@ -23,8 +23,8 @@ class Bill:
         if len(bill['due_date']) < 1:
             flash("Date Is A Required Field")
             is_valid = False
-        # if len(bill['amount']) < 1:
-        #     flash("Bill Cost/Amount Is A Required Field")
+        if (bill['amount']) == "" :
+            flash("Bill Cost/Amount Is A Required Field")
             is_valid = False
         return is_valid
 
