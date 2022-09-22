@@ -75,8 +75,6 @@ def create_bill():
 def show_bill(id):
     if 'id' not in session:
         return redirect('/logout')
-    if 'id' not in session:
-        return redirect('/logout')
     bill_data = {
         'id': id
     }
