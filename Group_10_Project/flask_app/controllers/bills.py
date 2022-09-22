@@ -1,18 +1,24 @@
-from flask import render_template, redirect, session, request, flash
+from flask import render_template, redirect, session, request, flash, json
 from flask_app import app
 from flask_app.models.bill import Bill
 from flask_app.models.account import Account
+from flask_app.models.image_text import Image_text
+
 
 #Route to create bill page
-@app.route('/new/bill')
+@app.route('/new/bill', methods=['POST','GET'])
 def new_bill():
     if 'id' not in session:
         return redirect('/logout')
     data = {
         'id': session['id']
     }
-    return render_template('create.html', account=Account.get_one(data))
-
+    total_cost=""
+    if request.method == "POST":
+        images = request.files['file']
+        filename=images.filename
+        total_cost=Image_text.total_amount(images,filename)
+    return render_template('create.html', account=Account.get_one(data),total_cost=total_cost)
 #Route to create bill
 @app.route('/create/bill', methods=['POST'])
 def create_bill():

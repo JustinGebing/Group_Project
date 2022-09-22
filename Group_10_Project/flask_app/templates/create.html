@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="static/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="static/js/upload_Image.js"></script>
 </head>
 <body>
     <div class="container-fluid bg-dark mb-auto text-light d-flex justify-content-between">
@@ -40,8 +41,8 @@
                             <input class="form-control" type="text" name="name" placeholder="name">
                         </div>
                         <div class="form-floating">
-                            <label for="how_much" class="form-label">Bill Amount:</label>
-                            <input class="form-control" type="number" name="how_much" placeholder="Bill amount">
+                            <label for="amount" class="form-label">Bill Amount:</label>
+                            <input class="form-control" type="number" name="amount" placeholder="Bill amount">
                         </div>
                         <div>
                             <label class="form-label" for="due_date">Due Date:</label>
@@ -52,6 +53,17 @@
                             <label class="form-check-label" for="recurring">Is Bill Recurring?</label>
                         </div>
                         <input class="btn btn-secondary btn-sm mb-2 mt-5" type="submit" value="Create New Bill">
+                <div class="col">
+                    <h2>Upload Image Here</h2>
+                    <p>hi</p>
+                    <form action='/new/bill' id='imageForm' method='post' enctype="multipart/form-data">
+                        <label for="file">Upload Image: </label>
+                        <input type='file' name='file' value="{{file}}">
+                        <input type='submit' id='submit_btn' value='Upload'>
+                    </form>
+                    <form id='billForm' method='post'>
+                        <label for="amount">Total Bill: </label>
+                        <input type='text' name='amount' value="${{total_cost}}">
                     </form>
                 </div>
             </div>
@@ -63,5 +75,4 @@
     <script src="static/js/bootstrap.js"></script>
 </body>
 </html>
-
 
