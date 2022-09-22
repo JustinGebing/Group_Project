@@ -75,5 +75,5 @@ class Image_text:
                 print("Here is the price"+price)
         except:
             total=price
-        os.remove(UPLOAD_FOLDER+filename) 
+        #os.remove(UPLOAD_FOLDER+filename) 
         return total
