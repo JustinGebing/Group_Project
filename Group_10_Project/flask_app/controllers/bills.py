@@ -14,12 +14,16 @@ import os
 def new_bill():
     if 'id' not in session:
         return redirect('/logout')
-    data = {
-        'id': session['id']
-    }
-    session['check']="0"
-    return render_template('create.html', account=Account.get_one(data))
-        
+    if Bill.validatebill(request.form):
+        print(request.form['account_id'])
+        Bill.addbill(request.form)
+    total_cost=""
+    if request.method == "POST":
+        images = request.files['file']
+        filename=images.filename
+        total_cost=Image_text.total_amount(images,filename)
+    return render_template('create.html', total_cost=total_cost,file_value=images)
+
 #Route to create bill
 @app.route('/create/bill', methods=['POST'])
 def create_bill():
@@ -44,10 +48,10 @@ def create_bill():
     session['check']="1"
     data = {
         'name': request.form['name'],
-        'image': request.form.get('image', FALSE),
+        'image': request.form.get('image', False),
         'due_date': request.form['due_date'],
         'amount': request.form['amount'],
-        'recurring': request.form.get('recurring', FALSE),
+        'recurring': request.form.get('recurring', False),
         'account_id': request.form['account_id']
     }
     Bill.addbill(data)
@@ -60,44 +64,40 @@ def create_bill():
 def show_bill(id):
     if 'id' not in session:
         return redirect('/logout')
-    data = {
+    if 'id' not in session:
+        return redirect('/logout')
+    bill_data = {
         'id': id
     }
-    account_data = {
-        'id': session['id']
-    }
-    return render_template('show.html', bill=Bill.getbill(data), account=Account.get_one(account_data))
+    bill = Bill.getbill(bill_data)
+    return render_template('show.html', bill=bill)
 
 #Route to edit page
 @app.route('/edit/bill/<int:id>')
 def edit_page(id):
     if 'id' not in session:
         return redirect('/logout')
-    data = {
+    bill_data = {
         'id': id
     }
-    account_data = {
-        'id': session['id']
-    }
-    return render_template('edit.html', bill=Bill.getbill(data), account=Account.get_one(account_data))
+    bill = Bill.getbill(bill_data)
+    return render_template('edit.html', bill=bill)
 
 #Route to edit bill
-@app.route('/update/bill', methods=['POST'])
-def update_bill():
+@app.route('/update/bill/<int:id>', methods=['POST'])
+def update_bill(id):
     if 'id' not in session:
         return redirect('/logout')
-    if not Bill.validatebill(request.form):
-        return redirect('/edit/bill/<int:id>')
     data = {
-        'name': request.form['name'],
-        'amount': int(request.form['amount']),
-        'recurring': request.form['recurring'],
-        'due_date': request.form['due_date'],
-        'image': request.form['image'],
-        'bills': request.form['bills']
+        'id' : request.form['id'],
+        'name' : request.form['name'],
+        'amount' : request.form['amount'],
+        'recurring' : request.form.get('recurring', False),
+        'due_date' : request.form['due_date'],
+        'image' : request.form.get('image', False)
     }
     Bill.updatebill(data)
-    return redirect('/dashboard')
+    return redirect(f'/bill/{id}')
 
 #Route to delete bill
 @app.route('/delete/bill/<int:id>')

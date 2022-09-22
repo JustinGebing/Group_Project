@@ -32,8 +32,8 @@
                 <input class="form-control" type='file' name='file' value="{{file}}">
                 <input class="btn btn-sm btn-secondary mt-2" type='submit' id="submit_btn" value='Upload'>
             </form>
-            <form action="/update/bill" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="bills" value="{{bill.id}}">
+            <form action="/update/bill/{{bill.id}}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{bill.id}}">
                 <input type="hidden" name="image" value="{{bill.image}}">
                 <div class="form-floating">
                     <label for="name" class="form-label">Name of Bill:</label>

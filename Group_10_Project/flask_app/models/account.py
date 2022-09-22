@@ -2,7 +2,6 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 from flask_bcrypt import Bcrypt
 import re
-from flask_app.models.bill import Bill
 
 email_regex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
@@ -66,19 +65,19 @@ class Account:
 #This Method Gets All The Bills Associated With One User
     @classmethod
     def getbills(cls):
-        query = "SELECT * FROM accounts LEFT JOIN bills on accounts.id = bills.account_id"
+        query = "SELECT * FROM bills JOIN accounts ON bills.accounts_id = accounts.id;"
         results = connectToMySQL(cls.db).query_db(query)
         account = cls(results[0])
         for abill in results:
             bill = {
-                'id': abill['id'],
+                'id': abill['bills.id'],
                 'name': abill['name'],
                 'image':abill['image'], 
                 'due_date': abill['due_date'],
                 'amount': abill['amount'],
                 'recurring': abill['recurring'],
-                'created_at':abill['created_at'],
-                'updated_at': abill['updated_at'],
+                'created_at':abill['bills.created_at'],
+                'updated_at': abill['bills.updated_at'],
                 'account_id': abill['account_id']
             }
             account.bills.append(bill)
