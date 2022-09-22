@@ -17,20 +17,18 @@ def new_bill():
     if Bill.validatebill(request.form):
         print(request.form['account_id'])
         Bill.addbill(request.form)
-    total_cost=""
+    session['check']="1"
     if request.method == "POST":
         images = request.files['file']
         filename=images.filename
-        total_cost=Image_text.total_amount(images,filename)
-    return render_template('create.html', total_cost=total_cost,file_value=images)
+        session['total_cost']=Image_text.total_amount(images,filename)
+    return render_template('create.html')
 
 #Route to create bill
 @app.route('/create/bill', methods=['POST'])
 def create_bill():
     if 'id' not in session:
         return redirect('/logout')
-    if not Bill.validatebill(request.form):
-        return redirect('/new/bill')
     if session['check']=="1":
         total_cost=""
         filelocation=""
@@ -44,6 +42,8 @@ def create_bill():
         session['total_cost']=total_cost
         print(session['total_cost'])
         session['check']="0"
+        return render_template('create.html',total_cost=session['total_cost'],image_loc=session['image_location'])
+    elif not Bill.validatebill(request.form):
         return redirect('/new/bill')
     session['check']="1"
     data = {
