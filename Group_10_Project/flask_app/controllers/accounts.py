@@ -61,11 +61,13 @@ def login():
 def dashboard():
     if 'id' not in session:
         return redirect('/logout')
-    data = {
+    account_data = {
         'id': session['id']
     }
-    return render_template('home.html', bills = Account.getbills())
-    # , bill=Account.getbills()
+    bills = Bill.getallbills()
+    account = Account.get_one(account_data)
+    return render_template('home.html', account=account, bills=bills)
+
 
 @app.route('/logout')
 def logout():

@@ -31,10 +31,10 @@ def create_bill():
         return redirect('/new/bill')
     data = {
         'name': request.form['name'],
-        'image': request.form.get('image', FALSE),
+        'image': request.form.get('image', False),
         'due_date': request.form['due_date'],
         'amount': request.form['amount'],
-        'recurring': request.form.get('recurring', FALSE),
+        'recurring': request.form.get('recurring', False),
         'account_id': request.form['account_id']
     }
     Bill.addbill(data)
@@ -46,44 +46,34 @@ def create_bill():
 def show_bill(id):
     if 'id' not in session:
         return redirect('/logout')
-    data = {
+    if 'id' not in session:
+        return redirect('/logout')
+    bill_data = {
         'id': id
     }
-    account_data = {
-        'id': session['id']
-    }
-    return render_template('show.html', bill=Bill.getbill(data), account=Account.get_one(account_data))
+    bill = Bill.getbill(bill_data)
+    return render_template('edit.html', bill=bill)
 
 #Route to edit page
 @app.route('/edit/bill/<int:id>')
 def edit_page(id):
     if 'id' not in session:
         return redirect('/logout')
-    data = {
+    bill_data = {
         'id': id
     }
-    account_data = {
-        'id': session['id']
-    }
-    return render_template('edit.html', bill=Bill.getbill(data), account=Account.get_one(account_data))
+    bill = Bill.getbill(bill_data)
+    return render_template('edit.html', bill=bill)
 
 #Route to edit bill
-@app.route('/update/bill', methods=['POST'])
-def update_bill():
+@app.route('/update/bill/<int:id>', methods=['POST'])
+def update_bill(id):
     if 'id' not in session:
         return redirect('/logout')
-    if not Bill.validatebill(request.form):
-        return redirect('/edit/bill/<int:id>')
-    data = {
-        'name': request.form['name'],
-        'amount': int(request.form['amount']),
-        'recurring': request.form['recurring'],
-        'due_date': request.form['due_date'],
-        'image': request.form['image'],
-        'bills': request.form['bills']
-    }
-    Bill.updatebill(data)
-    return redirect('/dashboard')
+    if Bill.validatebill(request.form):
+        Bill.updatebill(request.form)
+        return redirect('/dashboard')
+    return redirect(f'/edit/bill/{id}')
 
 #Route to delete bill
 @app.route('/delete/bill/<int:id>')

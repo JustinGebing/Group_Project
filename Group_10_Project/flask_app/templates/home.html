@@ -34,18 +34,17 @@
                 </tr>
         </thead>
         <tbody class="table-group-divider">
-            {% for a_bill in bills.bills %}
-                {% if session['id'] == a_bill.account_id %}
+            {% for bill in bills %}
+                {% if session['id'] == bill.account_id %}
             <div class="list-group">
-                <a href="/bill/{{a_bill.id}}" class="list-group-item list-group-item-action active" aria-current="true">
                 <tr>
                     <th scope="row">
                         <img src="" class="img-fluid rounded">
                     <td>
-                        <a href="/bill/{{a_bill.id}}" class="list-group-item list-group-item-action active" aria-current="true"> {{a_bill.name}} </a>
+                        <a href="/bill/{{bill.id}}" class="list-group-item list-group-item-action active" aria-current="true"> {{bill.name}} </a>
                     </td>
-                    <td>{{a_bill.amount}}</td>
-                    <td>{{a_bill.due_date}}</td>
+                    <td>{{bill.amount}}</td>
+                    <td>{{bill.due_date}}</td>
                     <td>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" value="yes">
