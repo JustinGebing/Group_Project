@@ -6,7 +6,7 @@ from flask_app.models.image_text import Image_text
 
 
 #Route to create bill page
-@app.route('/new/bill', methods=['POST','GET'])
+@app.route('/new/bill')
 def new_bill():
     if 'id' not in session:
         return redirect('/logout')
@@ -19,6 +19,15 @@ def new_bill():
         filename=images.filename
         total_cost=Image_text.total_amount(images,filename)
     return render_template('create.html', account=Account.get_one(data),total_cost=total_cost)
+#Route to image Parser
+@app.route('/new/bill/img', methods=['POST','GET'])
+def upload_img():
+    total_cost=""
+    if request.method == "POST":
+        images = request.files['img']
+        filename=images.filename
+        total_cost=Image_text.total_amount(images,filename)
+    return total_cost
 #Route to create bill
 @app.route('/create/bill', methods=['POST'])
 def create_bill():
